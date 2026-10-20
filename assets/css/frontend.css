@@ -1,0 +1,243 @@
+/* b83 OpenStreetMap – Frontend
+ * Farben, Größen und Rundungen kommen als CSS-Variablen aus den Einstellungen.
+ * Klassen b83-osm, b83-osm__title, b83-osm__route, b83-osm__pin, b83-osm__hint
+ * sind kompatibel zur früheren HTML-Einbindung. */
+
+.b83-osm-wrap {
+	--b83-osm-h: 450px;
+	--b83-osm-h-m: 340px;
+	--b83-osm-radius: 12px;
+	--b83-osm-border: 0px;
+	--b83-osm-border-color: #fff;
+	--b83-osm-color: #d96f21;
+	--b83-osm-popup-bg: #fff;
+	--b83-osm-popup-text: #1f2328;
+	--b83-osm-popup-radius: 10px;
+	width: 100%;
+	margin: 0 0 1em;
+}
+
+.b83-osm {
+	position: relative;
+	z-index: 0;
+	width: 100%;
+	height: var(--b83-osm-h);
+	box-sizing: border-box;
+	overflow: hidden;
+	border: var(--b83-osm-border) solid var(--b83-osm-border-color);
+	border-radius: var(--b83-osm-radius);
+	background: #e9eef2;
+	font: inherit;
+	isolation: isolate;
+}
+@media (max-width: 600px) {
+	.b83-osm { height: var(--b83-osm-h-m); }
+	.b83-osm .leaflet-popup-content { min-width: 180px; max-width: 230px; font-size: 13px; }
+	.b83-osm__popup { padding: 12px 14px 14px; }
+	.b83-osm__img { width: calc(100% + 28px) !important; margin: -12px -14px 10px; max-height: 110px !important; }
+}
+.b83-osm--shadow-soft { box-shadow: 0 4px 18px rgba(16, 24, 40, .10); }
+.b83-osm--shadow-strong { box-shadow: 0 10px 36px rgba(16, 24, 40, .24); }
+
+/* Themes setzen gern max-width/Rahmen auf img und Tabellen – in der Karte zurücksetzen. */
+.b83-osm img { max-width: none !important; max-height: none !important; box-shadow: none !important; }
+.b83-osm .leaflet-container { font: inherit; }
+.b83-osm.leaflet-container { font-family: inherit; font-size: 14px; }
+.b83-osm .leaflet-control-attribution { font-size: 11px; background: rgba(255, 255, 255, .78); border-top-left-radius: 6px; }
+.b83-osm .leaflet-control-attribution a { color: inherit; }
+
+/* Farbfilter auf den Kacheln (Pins und Info-Fenster bleiben unverändert) */
+.b83-osm--filter-grayscale .leaflet-tile-pane { filter: grayscale(1) contrast(1.05) brightness(1.03); }
+.b83-osm--filter-muted .leaflet-tile-pane { filter: saturate(.45) brightness(1.06) contrast(.95); }
+.b83-osm--filter-warm .leaflet-tile-pane { filter: sepia(.35) saturate(.9) brightness(1.02); }
+.b83-osm--filter-dark .leaflet-tile-pane { filter: invert(1) hue-rotate(180deg) brightness(.92) contrast(.88) saturate(.6); }
+.b83-osm--filter-dark { background: #1d2024; }
+
+/* Steuerelemente */
+.b83-osm .leaflet-bar { border: 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(16, 24, 40, .18); }
+.b83-osm .leaflet-bar a { width: 34px; height: 34px; line-height: 34px; color: #1f2328; border-bottom-color: #e6e8eb; }
+.b83-osm .leaflet-bar a:hover, .b83-osm .leaflet-bar a:focus-visible { background: #f4f6f8; color: var(--b83-osm-color); }
+.b83-osm .leaflet-control-layers { border: 0; border-radius: 8px; box-shadow: 0 2px 10px rgba(16, 24, 40, .18); }
+.b83-osm .leaflet-control-layers-expanded { padding: 8px 12px; }
+.b83-osm .b83-osm__fs { display: flex; align-items: center; justify-content: center; }
+.b83-osm .b83-osm__fs svg { width: 15px; height: 15px; }
+
+/* Pins */
+.b83-osm__marker { background: none; border: 0; }
+.b83-osm__marker:focus-visible { outline: none; }
+.b83-osm__marker:focus-visible .b83-osm__pin { outline: 3px solid #fff; outline-offset: 2px; }
+
+.b83-osm__pin {
+	--b83-pin: var(--b83-osm-color);
+	--b83-pin-icon: #fff;
+	--b83-pin-size: 36px;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-sizing: border-box;
+	width: var(--b83-pin-size);
+	height: var(--b83-pin-size);
+	color: var(--b83-pin-icon);
+	background: var(--b83-pin);
+	border: 3px solid #fff;
+	box-shadow: 0 3px 10px rgba(0, 0, 0, .32);
+	transition: transform .15s ease;
+}
+.b83-osm__pin--drop { border-radius: 50% 50% 50% 0; transform: rotate(-45deg); }
+.b83-osm__pin--drop .b83-osm__pin-icon { transform: rotate(45deg); }
+.b83-osm__pin--circle { border-radius: 50%; }
+.b83-osm__pin--square { border-radius: 28%; }
+.b83-osm__pin--icon {
+	color: var(--b83-pin);
+	background: none;
+	border: 0;
+	box-shadow: none;
+	filter: drop-shadow(0 0 1.5px #fff) drop-shadow(0 0 1.5px #fff) drop-shadow(0 3px 4px rgba(0, 0, 0, .35));
+}
+.b83-osm__pin-icon { display: flex; align-items: center; justify-content: center; width: 52%; height: 52%; line-height: 1; }
+.b83-osm__pin--icon .b83-osm__pin-icon { width: 100%; height: 100%; }
+.b83-osm__pin-icon svg { display: block; width: 100%; height: 100%; }
+.b83-osm__pin-icon i { font-size: calc(var(--b83-pin-size) * .45); }
+.b83-osm__pin--icon .b83-osm__pin-icon i { font-size: var(--b83-pin-size); }
+.b83-osm__pin-dot { display: block; width: 50%; height: 50%; border-radius: 50%; background: var(--b83-pin-icon); }
+.b83-osm__marker:hover .b83-osm__pin { transform: translateY(-2px); }
+.b83-osm__marker:hover .b83-osm__pin--drop { transform: rotate(-45deg) translate(1px, -2px); }
+.b83-osm__pin-img { display: block; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 3px 4px rgba(0, 0, 0, .3)); }
+
+/* Info-Fenster */
+.b83-osm .leaflet-popup-content-wrapper {
+	background: var(--b83-osm-popup-bg);
+	color: var(--b83-osm-popup-text);
+	border-radius: var(--b83-osm-popup-radius);
+	box-shadow: 0 8px 28px rgba(16, 24, 40, .22);
+	padding: 0;
+	overflow: hidden;
+}
+.b83-osm .leaflet-popup-tip { background: var(--b83-osm-popup-bg); box-shadow: 0 3px 12px rgba(16, 24, 40, .18); }
+.b83-osm .leaflet-popup-content { margin: 0; min-width: 200px; max-width: 280px; font-size: 14px; line-height: 1.5; }
+.b83-osm .leaflet-container a.leaflet-popup-close-button { color: var(--b83-osm-popup-text); opacity: .6; top: 4px; right: 4px; }
+.b83-osm .leaflet-container a.leaflet-popup-close-button:hover { opacity: 1; }
+.b83-osm__popup { padding: 14px 18px 16px; }
+.b83-osm__popup > :last-child { margin-bottom: 0; }
+.b83-osm__img { display: block; width: calc(100% + 36px) !important; height: auto !important; max-height: 150px !important; margin: -14px -18px 12px; object-fit: cover; }
+.b83-osm__title { display: block; font-weight: 700; font-size: 15px; line-height: 1.3; margin: 0 22px 3px 0; }
+.b83-osm__address { display: block; opacity: .82; }
+.b83-osm__text { margin-top: 8px; }
+.b83-osm__text strong, .b83-osm__text b { font-weight: 700; }
+.b83-osm__text p, .b83-osm__text ul, .b83-osm__text ol { margin: 0 0 6px; }
+.b83-osm__text ul, .b83-osm__text ol { padding-left: 18px; }
+.b83-osm__text h3, .b83-osm__text h4 { margin: 0 0 4px; font-size: 14px; color: inherit; }
+.b83-osm__text a, .b83-osm__contact a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.b83-osm__contact { list-style: none; margin: 8px 0 0; padding: 0; }
+.b83-osm__contact li { display: flex; align-items: center; gap: 8px; margin: 2px 0; }
+.b83-osm__contact svg { flex: 0 0 auto; width: 13px; height: 13px; color: var(--b83-osm-color); }
+.b83-osm .b83-osm__route {
+	display: inline-flex;
+	align-items: center;
+	margin-top: 10px;
+	padding: 6px 12px;
+	border-radius: 999px;
+	background: var(--b83-osm-color);
+	color: #fff;
+	font-weight: 600;
+	font-size: 13px;
+	text-decoration: none;
+}
+.b83-osm .b83-osm__route:hover, .b83-osm .b83-osm__route:focus-visible { filter: brightness(.92); color: #fff; }
+
+/* Hinweis „Zum Zoomen klicken“ */
+.b83-osm__hint {
+	position: absolute;
+	z-index: 500;
+	left: 50%;
+	bottom: 14px;
+	transform: translateX(-50%);
+	padding: 4px 12px;
+	border-radius: 999px;
+	background: rgba(31, 35, 40, .78);
+	color: #fff;
+	font-size: 12px;
+	white-space: nowrap;
+	pointer-events: none;
+	transition: opacity .25s;
+}
+
+/* Laden erst nach Klick */
+.b83-osm__consent {
+	position: absolute;
+	inset: 0;
+	z-index: 600;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	padding: 20px;
+	text-align: center;
+	color: #1f2328;
+	background: linear-gradient(135deg, #eef2f5 0%, #dfe6ec 100%);
+	background-image:
+		repeating-linear-gradient(0deg, rgba(255, 255, 255, .55) 0 1px, transparent 1px 40px),
+		repeating-linear-gradient(90deg, rgba(255, 255, 255, .55) 0 1px, transparent 1px 40px),
+		linear-gradient(135deg, #eef2f5 0%, #dfe6ec 100%);
+}
+.b83-osm__consent p { max-width: 420px; margin: 0; font-size: 14px; line-height: 1.5; }
+.b83-osm__consent-icon { width: 34px; height: 34px; color: var(--b83-osm-color); }
+.b83-osm__consent-icon svg { width: 100%; height: 100%; }
+.b83-osm .b83-osm__consent-btn {
+	padding: 9px 20px;
+	font-size: 14px;
+	line-height: 1.3;
+	text-transform: none;
+	letter-spacing: normal;
+	border: 0;
+	border-radius: 999px;
+	background: var(--b83-osm-color);
+	color: #fff;
+	font-family: inherit;
+	font-weight: 600;
+	cursor: pointer;
+}
+.b83-osm .b83-osm__consent-btn:hover, .b83-osm .b83-osm__consent-btn:focus-visible { filter: brightness(.92); }
+.b83-osm__consent-remember { display: flex; align-items: center; gap: 6px; font-size: 12px; opacity: .8; cursor: pointer; }
+.b83-osm.is-loaded .b83-osm__consent { display: none; }
+
+/* Adressliste unter der Karte */
+.b83-osm-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; list-style: none; margin: 12px 0 0; padding: 0; }
+.b83-osm-list li { margin: 0; padding: 0; }
+.b83-osm-list__item {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+	padding: 10px 14px;
+	border: 1px solid rgba(0, 0, 0, .1);
+	border-left: 4px solid var(--b83-osm-color);
+	border-radius: 8px;
+	background: #fff;
+	color: #1f2328;
+	font-family: inherit;
+	font-size: 14px;
+	text-transform: none;
+	letter-spacing: normal;
+	text-align: left;
+	cursor: pointer;
+	transition: box-shadow .15s, transform .15s;
+}
+.b83-osm-list__item:hover, .b83-osm-list__item:focus-visible, .b83-osm-list__item.is-active { box-shadow: 0 4px 14px rgba(16, 24, 40, .12); transform: translateY(-1px); }
+.b83-osm-list__title { font-weight: 700; font-size: 15px; line-height: 1.35; }
+.b83-osm-list__address { font-size: 13px; line-height: 1.4; opacity: .78; }
+
+/* Ohne JavaScript */
+.b83-osm__fallback { margin: 0; padding: 16px 16px 16px 32px; }
+
+/* Hinweis für Redakteure */
+.b83-osm-notice { padding: 10px 14px; border-left: 4px solid #d63638; background: #fcf0f1; color: #1f2328; font-size: 14px; }
+
+/* Vollbild */
+.b83-osm:fullscreen { height: 100vh; border-radius: 0; border: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+	.b83-osm__pin, .b83-osm-list__item, .b83-osm__hint { transition: none; }
+}

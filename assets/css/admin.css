@@ -1,0 +1,125 @@
+/* b83 OpenStreetMap – Backend */
+
+.b83-osm-admin .nav-tab-wrapper { margin-bottom: 20px; }
+.b83-osm-admin__foot { margin-top: 32px; color: #646970; }
+
+.b83-osm-card { background: #fff; border: 1px solid #dcdcde; border-radius: 8px; padding: 18px 20px; margin: 0 0 20px; }
+.b83-osm-card > h2:first-child { margin-top: 0; }
+.b83-osm-label { display: block; font-weight: 600; margin: 0 0 4px; }
+.b83-osm-check { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; }
+
+/* Übersicht */
+.b83-osm-empty { max-width: 640px; padding: 40px; text-align: center; background: #fff; border: 1px dashed #c3c4c7; border-radius: 8px; }
+.b83-osm-table td { vertical-align: middle; }
+.b83-osm-table__actions { white-space: nowrap; }
+.b83-osm-code { display: inline-flex; gap: 4px; align-items: center; }
+.b83-osm-code input { font-family: Menlo, Consolas, monospace; font-size: 12px; background: #f6f7f7; }
+
+/* Editor-Layout */
+.b83-osm-editor { display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 440px); gap: 20px; align-items: start; }
+.b83-osm-sticky { position: sticky; top: 46px; }
+@media (max-width: 1100px) {
+	.b83-osm-editor { grid-template-columns: 1fr; }
+	.b83-osm-sticky { position: static; }
+	.b83-osm-editor__side { order: -1; }
+}
+.b83-osm-actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 0; }
+.b83-osm-small-form { max-width: 720px; }
+
+.b83-osm-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 18px; }
+.b83-osm-grid > * { margin: 6px 0; }
+.b83-osm-col-2 { grid-column: 1 / -1; }
+.b83-osm-grid label { display: block; font-weight: 600; margin-bottom: 4px; }
+.b83-osm-grid label.b83-osm-check { display: inline-flex; }
+.b83-osm-grid .description { margin-top: 4px; }
+@media (max-width: 782px) { .b83-osm-grid { grid-template-columns: 1fr; } }
+
+/* Gruppen */
+.b83-osm-group { border-top: 1px solid #f0f0f1; }
+.b83-osm-group > summary { cursor: pointer; padding: 12px 0; font-weight: 600; font-size: 14px; list-style: none; display: flex; align-items: center; gap: 8px; }
+.b83-osm-group > summary::-webkit-details-marker { display: none; }
+.b83-osm-group > summary::before { content: "\f345"; font-family: dashicons; color: #787c82; transition: transform .15s; }
+.b83-osm-group[open] > summary::before { transform: rotate(90deg); }
+.b83-osm-group > .b83-osm-grid { padding: 0 0 14px 22px; }
+
+/* Adressen */
+.b83-osm-markers { display: flex; flex-direction: column; gap: 10px; margin: 14px 0; }
+.b83-osm-marker { border: 1px solid #dcdcde; border-radius: 8px; background: #fbfbfc; }
+.b83-osm-marker[open] { background: #fff; box-shadow: 0 2px 10px rgba(0, 0, 0, .05); }
+.b83-osm-marker > summary { display: flex; align-items: center; gap: 10px; padding: 10px 12px; cursor: pointer; list-style: none; }
+.b83-osm-marker > summary::-webkit-details-marker { display: none; }
+.b83-osm-marker__handle { color: #a7aaad; cursor: grab; }
+.b83-osm-marker__title { flex: 1; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.b83-osm-marker__coords::before { content: ""; display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: #dba617; }
+.b83-osm-marker__coords.has-coords::before { background: #00a32a; }
+.b83-osm-marker__remove { color: #b32d2e; }
+.b83-osm-marker__remove:hover { color: #8a2424; }
+.b83-osm-marker__body { padding: 4px 16px 14px; border-top: 1px solid #f0f0f1; }
+.b83-osm-marker.ui-sortable-helper { box-shadow: 0 8px 24px rgba(0, 0, 0, .15); }
+.b83-osm-marker.ui-sortable-placeholder { visibility: visible !important; border: 2px dashed #c3c4c7; background: transparent; min-height: 44px; }
+.b83-osm-geocode { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.b83-osm-geocode .dashicons, #b83-osm-add-marker .dashicons { vertical-align: text-bottom; }
+.b83-osm-geocode__msg.is-ok { color: #008a20; }
+.b83-osm-geocode__msg.is-error { color: #b32d2e; }
+.b83-osm-toolbar { display: flex; gap: 4px; margin-bottom: 4px; }
+.b83-osm-toolbar .button { padding: 0 6px; min-height: 28px; }
+.b83-osm-toolbar .dashicons { font-size: 16px; width: 16px; height: 16px; vertical-align: middle; }
+
+/* Bild */
+.b83-osm-media { display: flex; align-items: center; gap: 10px; }
+.b83-osm-media__preview img { display: block; width: 48px; height: 48px; object-fit: cover; border-radius: 6px; border: 1px solid #dcdcde; }
+
+/* Icon-Auswahl */
+.b83-osm-icon-picker { position: relative; }
+.b83-osm-icon-picker__toggle.button { display: inline-flex; align-items: center; gap: 8px; min-width: 200px; }
+.b83-osm-icon-picker__label { flex: 1; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 220px; }
+.b83-osm-icon-picker__current { display: inline-flex; width: 18px; height: 18px; align-items: center; justify-content: center; }
+.b83-osm-icon-picker__current svg, .b83-osm-ip-grid svg { width: 100%; height: 100%; }
+.b83-osm-icon-picker__pop {
+	position: absolute;
+	z-index: 1000;
+	top: calc(100% + 4px);
+	left: 0;
+	width: 340px;
+	max-width: 80vw;
+	padding: 10px;
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-radius: 8px;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, .16);
+}
+.b83-osm-ip-search { width: 100%; margin-bottom: 8px; }
+.b83-osm-ip-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 4px; max-height: 220px; overflow: auto; }
+.b83-osm-ip-grid button { display: flex; align-items: center; justify-content: center; aspect-ratio: 1; padding: 7px; border: 1px solid transparent; border-radius: 6px; background: #f6f7f7; color: #1d2327; cursor: pointer; }
+.b83-osm-ip-grid button:hover, .b83-osm-ip-grid button:focus-visible { border-color: #2271b1; background: #f0f6fc; }
+.b83-osm-ip-grid button.is-selected { border-color: #2271b1; background: #2271b1; color: #fff; }
+.b83-osm-ip-grid button[hidden] { display: none; }
+.b83-osm-ip-dot { display: block; width: 10px; height: 10px; border-radius: 50%; background: currentColor; }
+.b83-osm-ip-none { display: block; width: 12px; height: 12px; border: 1.5px dashed currentColor; border-radius: 50%; }
+.b83-osm-ip-inherit { font-weight: 700; }
+.b83-osm-ip-fa { font-size: 10px; font-weight: 700; }
+.b83-osm-ip-fa-field { display: block; margin-top: 8px; font-size: 12px; font-weight: 600; }
+.b83-osm-ip-fa-field input { display: block; width: 100%; margin-top: 2px; font-weight: 400; }
+
+/* Farbwähler mit Platzhalter */
+.b83-osm-admin .wp-picker-container input.wp-color-picker[type="text"] { width: 80px; }
+
+/* Vorschau */
+.b83-osm-preview .b83-osm-wrap { margin: 0; }
+.b83-osm-preview .b83-osm { max-height: 420px; }
+.b83-osm-preview__msg { margin: 8px 0 0; color: #646970; font-style: italic; }
+.b83-osm-preview__msg:empty { display: none; }
+.b83-osm-layer-note { display: block; margin-top: 4px; color: #996800; }
+
+/* Hilfe */
+.b83-osm-help { max-width: 1100px; }
+.b83-osm-help h2 { margin-top: 28px; }
+.b83-osm-help .widefat { margin-top: 8px; }
+.b83-osm-pre { background: #f6f7f7; border: 1px solid #dcdcde; border-radius: 6px; padding: 10px 12px; overflow: auto; white-space: pre-wrap; }
+.b83-osm-icon-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 6px; list-style: none; margin: 12px 0 0; padding: 0; }
+.b83-osm-icon-list li { display: grid; grid-template-columns: 22px 1fr; grid-template-rows: auto auto; column-gap: 8px; align-items: center; padding: 6px 8px; background: #f6f7f7; border-radius: 6px; margin: 0; }
+.b83-osm-icon-list svg { grid-row: 1 / 3; width: 20px; height: 20px; color: #1d2327; }
+.b83-osm-icon-list code { background: none; padding: 0; font-size: 12px; }
+.b83-osm-icon-list span { font-size: 11px; color: #646970; }
+.b83-osm-inherit-hint { display: block; margin-top: 4px; font-size: 12px; }
+.b83-osm-grid select, .b83-osm-grid input[type=text] { max-width: 100%; box-sizing: border-box; }
