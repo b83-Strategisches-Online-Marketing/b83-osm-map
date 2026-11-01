@@ -3,7 +3,7 @@
  * Plugin Name:       b83 OpenStreetMap
  * Plugin URI:        https://b83.at
  * Description:       OpenStreetMap-Karten per Shortcode: mehrere Adressen, ansprechende Kartenstile, formatierte Info-Fenster, Pin-Icons und frei wählbares Design. Leaflet ist lokal eingebunden.
- * Version:           1.0.0
+ * Version:           1.1.0
  * Requires at least: 6.2
  * Requires PHP:      8.1
  * Author:            b83 – Wolfgang Grabs-Schrempf
@@ -21,7 +21,7 @@ declare(strict_types=1);
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'B83_OSM_VERSION', '1.0.0' );
+define( 'B83_OSM_VERSION', '1.1.0' );
 define( 'B83_OSM_FILE', __FILE__ );
 define( 'B83_OSM_DIR', plugin_dir_path( __FILE__ ) );
 define( 'B83_OSM_URL', plugin_dir_url( __FILE__ ) );

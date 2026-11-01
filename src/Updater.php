@@ -67,6 +67,8 @@ final class Updater {
 			'package'      => $release['package'],
 			'requires_php' => '8.1',
 			'requires'     => '6.2',
+			'icons'        => $this->icons(),
+			'banners'      => $this->banners(),
 		);
 	}
 
@@ -97,8 +99,11 @@ final class Updater {
 			'requires_php'  => '8.1',
 			'last_updated'  => $release['published'],
 			'download_link' => $release['package'],
+			'icons'         => $this->icons(),
+			'banners'       => $this->banners(),
 			'sections'      => array(
-				'changelog' => $release['notes'],
+				'description' => $this->description(),
+				'changelog'   => $release['notes'],
 			),
 		);
 	}
@@ -148,6 +153,48 @@ final class Updater {
 		);
 		set_transient( self::TRANSIENT, $release, 6 * HOUR_IN_SECONDS );
 		return $release;
+	}
+
+	/**
+	 * Icons für die Update-Liste und „Details ansehen“.
+	 *
+	 * @return array<string,string>
+	 */
+	private function icons(): array {
+		$url = plugin_dir_url( B83_OSM_FILE ) . 'assets/img/';
+		return array(
+			'1x'  => $url . 'icon-128x128.png',
+			'2x'  => $url . 'icon-256x256.png',
+			'svg' => $url . 'icon.svg',
+		);
+	}
+
+	/**
+	 * Banner für „Details ansehen“.
+	 *
+	 * @return array<string,string>
+	 */
+	private function banners(): array {
+		$url = plugin_dir_url( B83_OSM_FILE ) . 'assets/img/';
+		return array(
+			'low'  => $url . 'banner-772x250.png',
+			'high' => $url . 'banner-1544x500.png',
+		);
+	}
+
+	/** Beschreibung für „Details ansehen“. */
+	private function description(): string {
+		$html = '';
+		$html .= '<p>' . esc_html__( 'Karten von OpenStreetMap statt Google Maps. Sie geben eine oder mehrere Adressen ein, das Plugin ermittelt die Koordinaten und zeigt die Karte per Shortcode an. Leaflet und alle Icons liegen im Plugin, es gehen keine Anfragen an ein CDN oder an Google.', 'b83-osm-map' ) . '</p>';
+		$html .= '<ul>';
+		$html .= '<li>' . esc_html__( 'Sieben Kartenstile und fünf Farbfilter', 'b83-osm-map' ) . '</li>';
+		$html .= '<li>' . esc_html__( 'Pins als Tropfen, Kreis, Quadrat oder eigenes Bild, mit 57 Icons', 'b83-osm-map' ) . '</li>';
+		$html .= '<li>' . esc_html__( 'Info-Fenster mit Text, Bild, Telefon, E-Mail und Routen-Link', 'b83-osm-map' ) . '</li>';
+		$html .= '<li>' . esc_html__( 'Karte auf Wunsch erst nach einem Klick laden', 'b83-osm-map' ) . '</li>';
+		$html .= '<li>' . esc_html__( 'Verwaltung im Backend mit Live-Vorschau, läuft auch in Elementor, Tabs und Popups', 'b83-osm-map' ) . '</li>';
+		$html .= '</ul>';
+		$html .= '<p>' . esc_html__( 'Ein Plugin von b83 – Strategisches Online Marketing.', 'b83-osm-map' ) . ' <a href="https://b83.at">b83.at</a></p>';
+		return $html;
 	}
 
 	/* ---------------------------------------------------------------------

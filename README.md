@@ -1,3 +1,5 @@
+![](assets/img/banner-772x250.png)
+
 # b83 OpenStreetMap
 
 OpenStreetMap-Karten für WordPress per Shortcode – mit einer oder mehreren Adressen, ansprechenden Kartenstilen, formatierten Info-Fenstern, Pin-Icons und frei wählbarem Design. Ein Plugin von [b83 – Strategisches Online Marketing](https://b83.at).
