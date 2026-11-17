@@ -797,6 +797,9 @@ final class AdminPage {
 		}
 		$address = Sanitizer::textarea( wp_unslash( $_POST['address'] ?? '' ), 300 ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Sanitizer::textarea().
 		$found   = '' !== $address ? $this->geocoder->lookup( $address ) : null;
+		if ( ob_get_length() ) {
+			ob_clean();
+		}
 		if ( null === $found ) {
 			wp_send_json_error();
 		}
@@ -852,6 +855,9 @@ final class AdminPage {
 		}
 		// phpcs:enable
 
+		if ( ob_get_length() ) {
+			ob_clean();
+		}
 		wp_send_json_success( $preview );
 	}
 }
