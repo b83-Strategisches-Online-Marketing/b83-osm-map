@@ -10,7 +10,7 @@
 - **Präfix für Funktionen, Optionen, Hooks:** `b83_osm_` (Namespace: `B83\OsmMap`)
 - **Repository:** github.com/b83-Strategisches-Online-Marketing/b83-osm-map (öffentlich)
 - **Vertrieb:** Verkaufskandidat (derzeit intern, Updates über GitHub-Releases)
-- **Im Einsatz auf:** offen
+- **Im Einsatz auf:** mehrere Kundenseiten
 - **Zweck in einem Satz:** OpenStreetMap-Karten per Shortcode: mehrere Adressen, ansprechende Kartenstile, formatierte Info-Fenster, Pin-Icons und frei wählbares Design. Leaflet ist lokal eingebunden.
 
 ## b83-Standards (gelten für alle b83-Plugins)
