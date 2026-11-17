@@ -93,7 +93,7 @@ final class Updater {
 			'name'          => 'b83 OpenStreetMap',
 			'slug'          => self::SLUG,
 			'version'       => $release['version'],
-			'author'        => '<a href="https://b83.at">Wolfgang Grabs-Schrempf / b83</a>',
+			'author'        => '<a href="https://b83.at">b83 – Wolfgang Grabs-Schrempf</a>',
 			'homepage'      => 'https://b83.at',
 			'requires'      => '6.2',
 			'requires_php'  => '8.1',
